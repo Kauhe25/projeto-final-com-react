@@ -2,6 +2,7 @@ import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { useNavigate } from "react-router";
+import Header from "../../Components/Header";
 
 const ListagemDepartamentos = () => {
 
@@ -54,21 +55,7 @@ const ListagemDepartamentos = () => {
 
   return (
     <>
-      <div className="flex justify-between py-4">
-        <h1 className="text-2xl">Listagem de Departamentos</h1>
-        <Button 
-          icon="pi pi-plus" 
-          severity="success" 
-          rounded 
-          text 
-          raised
-          onClick={() => {
-            navigate('/departamentos/new');
-          }}
-        />
-      </div>
-      
-      
+      <Header botaoIcone="pi-plus" botaoUrl="/departamentos/new" titulo="Listagem de Departamentos" />
       <DataTable value={departamentos} showGridlines paginator rows={3} scrollHeight="100%" 
         className="table-fixed w-full">
         <Column headerClassName="w-[8%]" bodyClassName="w-[8%]" field="id_departamento" header="ID"/>
