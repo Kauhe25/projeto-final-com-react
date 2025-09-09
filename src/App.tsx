@@ -1,5 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router"
 import Menu from "./Components/Menu"
+import Home from "./Pages/Home"
+import ListagemDepartamentos from "./Pages/Departamentos/ListagemDepartamentos"
+import FormularioDepartamentos from "./Pages/Departamentos/formularioDepartamentos"
+import NotFound from "./Pages/NotFound"
 
 function App() {
   return (
@@ -8,15 +12,15 @@ function App() {
       {/* container - centraliza os elementos na tela */}
       <div className="container border-2 mx-auto max-w-7xl p-4 h-80">
         <Routes>
-          <Route index element={<h1>Projeto final em React</h1>} />
+          <Route index element={<Home/>} />
           <Route path="departamentos">
-            <Route index element={<h1>Listagem de Departamentos</h1>} />
-            <Route path="new" element={<h1>Cadastro de Departamentos</h1>} />
-            <Route path=":id_departamento" element={<h1>Edição de Departamentos</h1>} />
+            <Route index element={<ListagemDepartamentos/>} />
+            <Route path="new" element={<h1><FormularioDepartamentos/></h1>} />
+            <Route path="edit/:id_departamento" element={<h1>Edição de Departamentos</h1>} />
           </Route>
 
           {/*Precisa ser sempre sa última rota */}
-          <Route path="*" element={<h1>Erro 404 - Página não encontrada!</h1>} />
+          <Route path="*" element={<NotFound/>} />
         </Routes>
       </div>
     </BrowserRouter>
