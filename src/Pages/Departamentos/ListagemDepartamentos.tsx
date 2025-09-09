@@ -3,8 +3,11 @@ import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { useNavigate } from "react-router";
+
 import Header from "../../Components/Header";
 import listaDepartamentos from "../../Services/Departamentos/listaDepartamentos";
+import { Message } from "primereact/message";
+
 
 const ListagemDepartamentos = () => {
 
@@ -18,8 +21,9 @@ const ListagemDepartamentos = () => {
   //useState -> armazena o estado de uma variável
   const navigate = useNavigate();
   const [departamentos, setDepartamentos] = useState<Departamento[]>([]);
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
   const [loaded, setLoaded] = useState(false);
+  const [erro, setErro] = useState(''); 
 
   useEffect(() => {
     
@@ -39,6 +43,7 @@ const ListagemDepartamentos = () => {
 
       } catch (e) {
         console.log(e);
+        setErro('Erro ao carregar os departamentos');
       }
     }
 
@@ -89,13 +94,24 @@ const ListagemDepartamentos = () => {
   return (
     <>
       <Header botaoIcone="pi-plus" botaoUrl="/departamentos/new" titulo="Listagem de Departamentos"/>
-      <DataTable value={departamentos} showGridlines paginator rows={3} scrollHeight="100%" 
-        className="table-fixed w-full" loading={!loaded}>
+      
+      <DataTable 
+        value={departamentos} 
+        showGridlines 
+        paginator 
+        rows={3} 
+        scrollHeight="100%" 
+        className="table-fixed w-full mb-8" 
+        loading={!loaded}
+        hidden={erro !== ''}
+        >
         <Column headerClassName="w-[8%]" bodyClassName="w-[8%]" field="id_departamento" header="ID"/>
         <Column headerClassName="w-[50%]" bodyClassName="w-[50%]"  field="nome" header="Nome"/>
         <Column headerClassName="w-[21%]" bodyClassName="w-[21%]"  field="sigla" header="Sigla"/>
         <Column headerClassName="w-[12%]" bodyClassName="w-[12%]"  header="Ações" body={templateAcoes}/>
       </DataTable>
+
+      <Message text={erro} hidden={erro === ''} className="w-full" severity="warn"/>
     </>
   )
 }
