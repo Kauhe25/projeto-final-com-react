@@ -14,3 +14,9 @@
 
 [X] O que são bibliotecas de componentes
 [X] Configuração e Instalação do [PrimeReact](https://primereact.org)
+
+## Capítulo 4 (Roteamento)
+[X] Instalando a dependência
+[X] Definindo as rotas
+[X] Criando as Pages
+[X] Crinado o menu
