@@ -8,14 +8,15 @@ import Header from "../../Components/Header";
 import listaDepartamentos from "../../Services/Departamentos/listaDepartamentos";
 import { Message } from "primereact/message";
 
+import type { Departamento } from "../../Types/types";
 
 const ListagemDepartamentos = () => {
 
-  interface Departamento {
+  /*interface Departamento {
     id_departamento: number;
     nome: string;
     sigla: string;
-  }
+  }*/
 
   //uso de hooks
   //useState -> armazena o estado de uma variável
