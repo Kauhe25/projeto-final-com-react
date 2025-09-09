@@ -1,9 +1,11 @@
-const menuItems = () => {
+import type { NavigateFunction } from "react-router";
+
+const menuItems = (navigate: NavigateFunction) => {
   return [
     {
       label: 'Home',
       icon: 'pi pi-fw pi-home',
-      command: () => { alert('Clicou em Home'); }
+      command: () => { navigate('/'); }
     },
     {
       label: 'Departamentos',
@@ -16,12 +18,12 @@ const menuItems = () => {
               { 
                 label: 'Listar', 
                 icon: 'pi pi-table', 
-                command: () => { alert('Clicou em Listar'); } 
+                command: () => { navigate('/departamentos'); } 
               },
               { 
                 label: 'Cadastrar', 
                 icon: 'pi pi-table', 
-                command: () => { alert('Clicou em Cadastrar'); } 
+                command: () => { navigate('/departamentos/new'); } 
               },
           ]
           }

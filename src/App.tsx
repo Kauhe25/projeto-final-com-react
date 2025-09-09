@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router"
 import Menu from "./Components/Menu"
 import Home from "./Pages/Home"
 import ListagemDepartamentos from "./Pages/Departamentos/ListagemDepartamentos"
-import FormularioDepartamentos from "./Pages/Departamentos/formularioDepartamentos"
+import FormularioDepartamentos from "./Pages/Departamentos/FormularioDepartamentos"
 import NotFound from "./Pages/NotFound"
 
 function App() {

@@ -19,4 +19,4 @@
 [X] Instalando a dependência
 [X] Definindo as rotas
 [X] Criando as Pages
-[X] Crinado o menu
+[X] Configurando o menu para direcionar os links

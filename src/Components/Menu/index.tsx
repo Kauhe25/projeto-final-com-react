@@ -1,7 +1,6 @@
 import { MegaMenu } from "primereact/megamenu";
 import menuItems from "./menuItems";
-import { Link, useNavigate } from "react-router";
-import { Button } from "primereact/button";
+import { useNavigate } from "react-router";
 
 const Menu = () => {
 
@@ -9,18 +8,7 @@ const Menu = () => {
   const navigate = useNavigate()
   return (
     <>
-      <MegaMenu model={menuItems()} breakpoint="900px" />
-      <hr />
-      <a href="/departamentos">Departamentos</a>
-      <hr />
-      <Link to="/departamentos">Departamentos</Link>
-      <hr />
-      <Button severity="danger" label="Departamentos" 
-        onClick={() => {
-          navigate('/departamentos')
-        }}
-      />
-
+      <MegaMenu model={menuItems(navigate)} breakpoint="900px" />
     </>
   )
 }
