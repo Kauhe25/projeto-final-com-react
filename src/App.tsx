@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Menu />
       {/* container - centraliza os elementos na tela */}
-      <div className="container border-2 mx-auto max-w-7xl p-4 h-90">
+      <div className="container mx-auto max-w-7xl p-4 h-90">
         <Routes>
           <Route index element={<Home/>} />
           <Route path="departamentos">
