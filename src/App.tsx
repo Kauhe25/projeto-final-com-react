@@ -1,27 +1,16 @@
-
+import Menu from "./Components/Menu"
 
 function App() {
   return (
-    <div className="p-10 bg-cyan-950 text-white">
-      <h1>Projeto final em react</h1>
-      <h2 className="text-yellow-300">Consumindo API rest</h2>
-      <hr />
-      <button className="
-      px-4 
-      py-2 
-      bg-cyan-300 
-      rounded-xl 
-      mt-4
-      text-cyan-950 
-      border-2 
-      cursor-pointer
-      hover: border-cyan-300
-      hover:bg-cyan-950
-      hover:text-white
-      ">
-        Enviar
-      </button>
-    </div>
+    <>
+      <Menu />
+      {/* container - centraliza os elementos na tela */}
+      <div className="container border-2 mx-auto max-w-7xl p-4 h-80">
+        <h1 className="text-3xl font-bold underline text-center">
+          Projeto final em React
+        </h1>
+      </div>
+    </>
   )
 }
 
