@@ -5,6 +5,9 @@ import ListagemDepartamentos from "./Pages/Departamentos/ListagemDepartamentos"
 import FormularioDepartamentos from "./Pages/Departamentos/FormularioDepartamentos"
 import NotFound from "./Pages/NotFound"
 
+import { ConfirmDialog } from 'primereact/confirmdialog'; // For <ConfirmDialog /> component
+import { confirmDialog } from 'primereact/confirmdialog'; // For confirmDialog method
+
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +25,7 @@ function App() {
           {/*Precisa ser sempre sa última rota */}
           <Route path="*" element={<NotFound/>} />
         </Routes>
+        <ConfirmDialog />
       </div>
     </BrowserRouter>
   )

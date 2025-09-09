@@ -8,6 +8,7 @@ import Header from "../../Components/Header";
 import listaDepartamentos from "../../Services/Departamentos/listaDepartamentos";
 import excluiDepartamento from "../../Services/Departamentos/excluiDepartamento";
 
+import { confirmDialog } from 'primereact/confirmdialog'; // For confirmDialog method
 import { Message } from "primereact/message";
 import type { Departamento } from "../../Types/types";
 import type { Axios, AxiosError } from "axios";
@@ -57,6 +58,20 @@ const ListagemDepartamentos = () => {
     }
   }
 
+  const confirmaExclusao = (departamento: Departamento) => {
+    setErroExclusao('');  
+    confirmDialog({
+      message: `Confirma a exclusão do departamento: ${departamento.nome}?`,
+      header: 'Confirmação',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
+      acceptClassName: 'p-button-danger',
+      accept: () => removeDepartamento(departamento.id_departamento),
+      reject: () => {}
+    });
+  }
+
   // dados mockados (futuramente virão de uma API)
   /*const departamentos: Departamento[] = [
     { id_departamento: 1, nome: "Recursos Humanos", sigla: "RH" },
@@ -91,7 +106,7 @@ const ListagemDepartamentos = () => {
           text 
           raised
           onClick={() => {
-            removeDepartamento(departamento.id_departamento);
+            confirmaExclusao(departamento);
           }}
           />
       </div>
