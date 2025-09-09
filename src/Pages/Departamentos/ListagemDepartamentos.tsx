@@ -6,25 +6,20 @@ import { useNavigate } from "react-router";
 
 import Header from "../../Components/Header";
 import listaDepartamentos from "../../Services/Departamentos/listaDepartamentos";
-import { Message } from "primereact/message";
+import excluiDepartamento from "../../Services/Departamentos/excluiDepartamento";
 
+import { Message } from "primereact/message";
 import type { Departamento } from "../../Types/types";
+import type { Axios, AxiosError } from "axios";
 
 const ListagemDepartamentos = () => {
 
-  /*interface Departamento {
-    id_departamento: number;
-    nome: string;
-    sigla: string;
-  }*/
-
-  //uso de hooks
-  //useState -> armazena o estado de uma variável
   const navigate = useNavigate();
   const [departamentos, setDepartamentos] = useState<Departamento[]>([]);
   const [, startTransition] = useTransition();
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState<boolean>(false);
   const [erro, setErro] = useState(''); 
+  const [erroExclusao, setErroExclusao] = useState('');
 
   useEffect(() => {
     
@@ -51,7 +46,16 @@ const ListagemDepartamentos = () => {
     loadDepartamentos();
   }, [loaded]);
 
-  
+  const removeDepartamento = async (id_departamento: number) => {
+    try { 
+      await excluiDepartamento(id_departamento);
+      setLoaded(false); 
+
+    } catch (err: unknown) {
+      const e = err as AxiosError<{message: string}>;
+      setErroExclusao(e.response?.data?.message || 'Erro ao excluir o departamento');
+    }
+  }
 
   // dados mockados (futuramente virão de uma API)
   /*const departamentos: Departamento[] = [
@@ -86,7 +90,9 @@ const ListagemDepartamentos = () => {
           rounded 
           text 
           raised
-          onClick={() => alert(`Excluirá o departamento ${departamento.nome} `)}
+          onClick={() => {
+            removeDepartamento(departamento.id_departamento);
+          }}
           />
       </div>
     )
@@ -113,6 +119,7 @@ const ListagemDepartamentos = () => {
       </DataTable>
 
       <Message text={erro} hidden={erro === ''} className="w-full" severity="warn"/>
+      <Message text={erroExclusao} hidden={erroExclusao === ''} className="w-full" severity="error"/>
     </>
   )
 }
