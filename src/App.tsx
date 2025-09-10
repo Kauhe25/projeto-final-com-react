@@ -5,8 +5,7 @@ import ListagemDepartamentos from "./Pages/Departamentos/ListagemDepartamentos"
 import FormularioDepartamentos from "./Pages/Departamentos/FormularioDepartamentos"
 import NotFound from "./Pages/NotFound"
 
-import { ConfirmDialog } from 'primereact/confirmdialog'; // For <ConfirmDialog /> component
-import { confirmDialog } from 'primereact/confirmdialog'; // For confirmDialog method
+import { ConfirmDialog } from 'primereact/confirmdialog'; 
 
 function App() {
   return (
@@ -18,8 +17,8 @@ function App() {
           <Route index element={<Home/>} />
           <Route path="departamentos">
             <Route index element={<ListagemDepartamentos/>} />
-            <Route path="new" element={<h1><FormularioDepartamentos/></h1>} />
-            <Route path="edit/:id_departamento" element={<h1>Edição de Departamentos</h1>} />
+            <Route path="new" element={<FormularioDepartamentos/>} />
+            <Route path="edit/:id_departamento" element={<FormularioDepartamentos/>} />
           </Route>
 
           {/*Precisa ser sempre sa última rota */}

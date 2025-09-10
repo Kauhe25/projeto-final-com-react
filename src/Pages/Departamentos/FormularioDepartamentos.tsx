@@ -2,16 +2,21 @@
 import Header from "../../Components/Header";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { useState, useRef } from "react";
-import { useNavigate } from "react-router";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
 import { Message } from "primereact/message";
 import insereDepartamento from "../../Services/Departamentos/insereDepartamento";
+import dadosDepartamento from "../../Services/Departamentos/dadosDepartamento";
+import editaDepartamento from "../../Services/Departamentos/editaDepartamento";
 
 import type { AxiosError } from "axios";
 
 const FormularioDepartamentos = () => {
 
   const navigate = useNavigate();
+  const { id_departamento } = useParams();
+
+  const prefixoTitulo = id_departamento ? 'Edição' : 'Cadastro';
   const [nome, setNome] = useState<string>('');
   const [sigla, setSigla] = useState<string>('');
   const [erro, setErro] = useState<string>('');
@@ -55,10 +60,46 @@ const FormularioDepartamentos = () => {
     }
     setLoading(false);
   }
+
+  const atualizaDepartamento = async () => {
+    try {
+      await editaDepartamento({id_departamento, nome, sigla});
+
+      //direciona para a tela de listagem
+      navigate('/departamentos');
+    } catch (err: unknown) {
+      const e = err as AxiosError<{message: string}>;
+      setErro(e.response?.data?.message || 'Erro interno');
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if(id_departamento){
+      const loadDadosDepartamento = async () => {
+        try {
+          const {data} = await dadosDepartamento(id_departamento);
+          
+          setNome(data[0].nome);
+          setSigla(data[0].sigla);
+        } catch (err: unknown) {
+          alert('Erro ao carregar os dados do departamento');
+          const e = err as AxiosError<{message: string}>;
+          setErro(e.response?.data?.message || 'Erro ao carregar os dados do departamento');
+        }
+      }
+      loadDadosDepartamento();
+    }
+  }, [id_departamento]);
+  
   
   return (
     <>
-      <Header botaoIcone="pi-chevron-left" botaoUrl="/departamentos" titulo="Cadastro de Departamentos" />
+      <Header 
+        botaoIcone="pi-chevron-left" 
+        botaoUrl="/departamentos" 
+        titulo={`${prefixoTitulo} de Departamentos`} 
+      />
       <div className="flex gap-4 mb-6">
         <div className="flex flex-col gap-2 w-1/3">
         <label htmlFor="nome">Nome</label>
@@ -94,7 +135,13 @@ const FormularioDepartamentos = () => {
             className="h-[58px]"
             onClick={() => {
               if(validarFormulario()) {
-                cadastroDepartamento();
+                setLoading(true);
+                if(!id_departamento){
+                  cadastroDepartamento();
+                }else{
+                  atualizaDepartamento();
+                }
+                
               }
             }}
           />

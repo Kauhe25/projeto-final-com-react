@@ -67,7 +67,7 @@ const ListagemDepartamentos = () => {
       acceptLabel: 'Sim',
       rejectLabel: 'Não',
       acceptClassName: 'p-button-danger',
-      accept: () => removeDepartamento(departamento.id_departamento),
+      accept: () => removeDepartamento(Number(departamento.id_departamento)),
       reject: () => {}
     });
   }
